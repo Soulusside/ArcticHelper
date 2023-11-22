@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Регистрация</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
 
 <div class="container mt-5">
     <h2>Регистрация</h2>
@@ -38,6 +30,7 @@
 
     <p>Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
 </div>
-
 </body>
 </html>
+
+{% endblock %}

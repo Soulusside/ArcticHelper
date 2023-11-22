@@ -89,14 +89,12 @@ def myprod():
     if request.method == 'POST':
         name = request.form['name']
         validuntil = request.form['validuntil']
-        print(validuntil)
         new_product = Product(name=name, validuntil=validuntil)
         db.session.add(new_product)
         db.session.commit()
 
         return redirect(url_for('myprod'))
     products = Product.query.all()
-    print(products)
     return render_template('myprod.html', products=products)
 
     #return render_template('myprod.html')

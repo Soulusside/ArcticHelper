@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> <!-- Updated link to your CSS file -->
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Личный кабинет</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-</head>
+{% extends 'base.html' %}
+{% block content %}
+
 <body>
 
 <div class="container mt-5">
@@ -20,3 +13,4 @@
 
 </body>
 </html>
+{% endblock %}
