@@ -4,6 +4,7 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length, EqualTo
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = 'mysecretkey'
@@ -92,12 +93,12 @@ def myprod():
         new_product = Product(name=name, validuntil=validuntil)
         db.session.add(new_product)
         db.session.commit()
-
         return redirect(url_for('myprod'))
-    products = Product.query.all()
-    return render_template('myprod.html', products=products)
 
-    #return render_template('myprod.html')
+    products = Product.query.all()
+    today = datetime.now().strftime('%Y-%m-%d')
+
+    return render_template('myprod.html', products=products, today=today)
 
 
 @app.route('/delete_product/<int:product_id>', methods=['POST'])

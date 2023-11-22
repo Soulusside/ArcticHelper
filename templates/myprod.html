@@ -1,27 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container mt-5">
-    <h1>Мои продукты</h1>
-<ul>
-    {% for product in products %}
-        <li>
-            {{ product.name }} - {{ product.validuntil }}
-            <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
-                <input type="submit" value="удалить">
-            </form>
-        </li>
-    {% endfor %}
-</ul>
-    <form method="post" action="{{ url_for('myprod') }}">
-        <label for="name">Название продукта:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="validuntil">Годен до:</label>
-        <input type="date" id="validuntil" name="validuntil" required>
-        <br>
-        <button type="submit">Добавить продукты</button>
-    </form>
-    <br>
+    <h2>Мои продукты</h2>
+    <ul>
+        {% if products|length == 0 %}
+        <p2>Список пуст</p2>
+        {% else %}
+            {% for product in products %}
+                    {% if product.validuntil < today %}
+                        <div class="container mt-1" style="color: red;"> {{ product.name }} (срок годности истек: {{ product.validuntil }}) <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                            <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+                    {% else %}
+                         <div class="container mt-1">  {{ product.id }} {{ product.name }} (годен до: {{ product.validuntil }}) <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                             <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+                    {% endif %}
+            {% endfor %}
+        {% endif %}
+    </ul>
+        <ul>
+                <form class="row g-3" method="post" action="{{ url_for('myprod') }}">
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">название продукта</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="название продукта" required>
+                    </div>
+                    <div class="col-auto">
+                        <label for="validuntil" class="visually-hidden">годен до</label>
+                        <input type="date" class="form-control" id="validuntil" name="validuntil" value="годен до" required>
+                    </div>
+                    <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">добавить</button>
+                    </div>
+                </form>
+        </ul>
     <a href="{{ url_for('index') }}">Назад</a>
 </div>
 </body>
