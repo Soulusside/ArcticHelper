@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои продукты</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Мои продукты</h1>
+
+
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.name }} - {{ product.validuntil }}
+            <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                <button type="submit">Удалить</button>
+            </form>
+        </li>
+    {% endfor %}
+</ul>
+
+
+    <form method="post" action="{{ url_for('myprod') }}">
+        <label for="name">Название продукта:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="validuntil">Годен до:</label>
+        <input type="date" id="validuntil" name="validuntil" required>
+        <br>
+        <button type="submit">Добавить продукты</button>
+    </form>
+    <br>
+    <a href="{{ url_for('index') }}">Назад</a>
+
+</div>
+
+
+
+</body>
+</html>
