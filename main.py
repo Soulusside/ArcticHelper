@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, Length, EqualTo
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from gigachat import GigaChat
 
 app = Flask(__name__)
 app.secret_key = 'mysecretkey'
@@ -18,6 +19,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     validuntil = db.Column(db.String(100), nullable=False)
+    typeprod = db.Column(db.String(100), nullable=False)
 
 class RegistrationForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
@@ -39,7 +41,6 @@ def register():
         password = form.password.data
 
         if username not in users:
-            # Хэшируем пароль перед сохранением в базу данных
             users[username] = generate_password_hash(password)
             flash('Регистрация успешна! Теперь вы можете войти.', 'success')
             return redirect(url_for('login'))
@@ -90,7 +91,8 @@ def myprod():
     if request.method == 'POST':
         name = request.form['name']
         validuntil = request.form['validuntil']
-        new_product = Product(name=name, validuntil=validuntil)
+        typeprod = request.form['typeprod']
+        new_product = Product(name=name, validuntil=validuntil, typeprod=typeprod)
         db.session.add(new_product)
         db.session.commit()
         return redirect(url_for('myprod'))
@@ -109,6 +111,22 @@ def delete_product(product_id):
     db.session.commit()
 
     return redirect(url_for('myprod'))
+
+@app.route('/recipes')
+def recipes():
+    products = Product.query.all()
+    prod = []
+    for p in products:
+        prod.append(p.name)
+    prod = ' '.join(prod)
+    with GigaChat(credentials='NDhiMTBhM2MtNzhhYS00ZmQ2LWJlYzYtZDViNzg1ZDk4OTBjOjRlNGM5Yjk5LWMzZjctNGViYi1hMjEwLTA2NDhkYThlNjg2OQ==',
+                  verify_ssl_certs=False) as giga:
+        response = giga.chat(f'какие есть кулинарные рецепты если у меня {prod}')
+        result = response.choices[0].message.content
+
+    return render_template('recipes.html', recipe = result)
+
+
 
 if __name__ == '__main__':
     db.create_all()
