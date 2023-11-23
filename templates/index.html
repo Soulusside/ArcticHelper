@@ -4,14 +4,12 @@
 <body>
 
 <div class="container mt-5">
-    <h2>Добро пожаловать, {{ username }}!</h2>
-    <p><a href="{{ url_for('logout') }}">Выйти</a></p>
-
-    <p><a href="{{ url_for('myprod') }}">Мои продукты</a></p>
-    <p><a href="{{ url_for('search') }}">Поиск</a></p>
-
+    <h4>Добро пожаловать, {{ username }}! <a href="{{ url_for('logout') }}">Выйти</a></h4>
+    <div class="d-grid gap-2 col-6 mx-auto">
+        <a href="{{ url_for('myprod') }}" class="btn btn-primary">Мои продукты</a>
+        <a href="{{ url_for('orders') }}" class="btn btn-primary">Мои заказы</a>
+    </div>
 </div>
-
 </body>
 </html>
 {% endblock %}

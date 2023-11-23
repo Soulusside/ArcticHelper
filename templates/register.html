@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+
+
 <div class="container mt-5">
     <h2>Регистрация</h2>
     {% with messages = get_flashed_messages() %}
@@ -26,9 +29,10 @@
             {{ form.confirm_password(class="form-control") }}
         </div>
         {{ form.submit(class="btn btn-primary") }}
+        <a href="{{ url_for('login') }}">у меня есть аккаунт</a>
     </form>
 
-    <p>Уже есть аккаунт? <a href="{{ url_for('login') }}">Войти</a></p>
+
 </div>
 
 {% endblock %}

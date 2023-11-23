@@ -20,10 +20,10 @@
             {{ form.password.label }}
             {{ form.password(class="form-control") }}
         </div>
-        {{ form.submit(class="btn btn-primary") }}
+        {{ form.submit(class="btn btn-primary") }} <a href="{{ url_for('register') }}">Регистрация</a>
     </form>
-</div>
 
+</div>
 </body>
 </html>
 {% endblock %}

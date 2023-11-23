@@ -1,68 +1,56 @@
-/* styles.css */
-
 body {
-    font-family: Verdana;
-    font-size: 20px;
-    letter-spacing: 0px;
-    word-spacing: 2px;
-    color: #000000;
-    font-weight: 400;
-    text-decoration: none solid rgb(68, 68, 68);
-    font-style: normal;
-    font-variant: small-caps;
-    text-transform: none;
+}
+
+@keyframes aurora {
+    0% {
+        opacity: 0.8;
+        background-position: 0% 0%;
+    }
+    100% {
+        opacity: 1;
+        background-position: 100% 100%;
+    }
 }
 
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #fff; /* Изменено на обычный белый цвет фона */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
 h2 {
-    color: #007bff; /* Blue color */
-    text-align: center
+    color: #007bff;
+    text-align: center;
 }
 
 a {
-    color: #28a745; /* Green color */
+    color: #007bff;
+    font-size: 16px;
     text-decoration: none;
+    transition: text-decoration 0.3s ease;
 }
 
 a:hover {
     text-decoration: underline;
 }
 
-
-
 .text-box {
     margin-left: 44vw;
-	 margin-top: 42vh;
+    margin-top: 42vh;
+    animation: moveInBottom 1s ease-out; /* Добавлена анимация для текстового блока */
 }
 
 form {
-  margin:10px;
-}
-
-@keyframes moveInBottom {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0px);
-    }
+    margin: 10px;
 }
 
 screen {
-  background-color: rgba(255, 255, 255, 1);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 }

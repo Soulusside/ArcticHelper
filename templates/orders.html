@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Мои заказы</h2>
+    <ul>
+        {% if orders|length == 0 %}
+        <p2>Список пуст</p2>
+        {% else %}
+            {% for order in orders %}
+                <div class="container mt-1"> {{ loop.index }}. {{ order.name }} {{ order.count }} <form method="post" action="{{ url_for('delete_order', orders_id=order.id) }}" style="display:inline;"><input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+            {% endfor %}
+        {% endif %}
+    </ul>
+        <ul>
+                <form class="row g-3" method="post" action="{{ url_for('orders') }}">
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">название продукта</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="название продукта" required>
+                    </div>
+                    <div class="col-auto">
+                        <label for="typeprod" class="visually-hidden">выбрать тип</label>
+                        <input type=text class="form-control" id="typeprod" name="typeprod" list=browsers placeholder="выберите тип" required>
+                        <datalist id=browsers>
+                            <option value="Продукт питания"></option>
+                            <option value="Лекарственное средство"></option>
+                        </datalist>
+                    </div>
+
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">количество</label>
+                        <input type="number" class="form-control" id="count" name="count" placeholder="количество" required>
+                    </div>
+
+                    <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">добавить</button>
+                    </div>
+                </form>
+
+        </ul>
+    <a href="{{ url_for('index') }}">Назад</a>
+</div>
+</body>
+</html>
+
+{% endblock %}

@@ -21,6 +21,12 @@ class Product(db.Model):
     validuntil = db.Column(db.String(100), nullable=False)
     typeprod = db.Column(db.String(100), nullable=False)
 
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    typeprod = db.Column(db.String(100), nullable=False)
+    count = db.Column(db.Integer, nullable=False)
+
 class RegistrationForm(FlaskForm):
     username = StringField('Логин', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired(), Length(min=6)])
@@ -59,7 +65,7 @@ def login():
 
         if username in users and check_password_hash(users[username], password):
             session['username'] = username
-            flash('Успешная авторизация!', 'success')
+            flash('Авторизация прошла успешно!', 'success')
             return redirect(url_for('index'))
         else:
             flash('Ошибка авторизации. Проверьте логин и пароль.', 'danger')
@@ -112,6 +118,13 @@ def delete_product(product_id):
 
     return redirect(url_for('myprod'))
 
+@app.route('/delete_order/<int:orders_id>', methods=['POST'])
+def delete_order(orders_id):
+    order = Orders.query.get_or_404(orders_id)
+    db.session.delete(order)
+    db.session.commit()
+    return redirect(url_for('orders'))
+
 @app.route('/recipes')
 def recipes():
     products = Product.query.all()
@@ -126,10 +139,20 @@ def recipes():
 
     return render_template('recipes.html', recipe = result)
 
-@app.route('/search')
-def search():
-    pass
+@app.route('/orders', methods=['GET', 'POST'])
+def orders():
+    if request.method == 'POST':
+        name = request.form['name']
+        typeprod = request.form['typeprod']
+        count = request.form['count']
+        new_order = Orders(name=name, typeprod=typeprod, count=count)
+        db.session.add(new_order)
+        db.session.commit()
+        return redirect(url_for('orders'))
 
+    orders = Orders.query.all()
+
+    return render_template('orders.html', orders=orders)
 
 if __name__ == '__main__':
     db.create_all()
