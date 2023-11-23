@@ -126,6 +126,9 @@ def recipes():
 
     return render_template('recipes.html', recipe = result)
 
+@app.route('/search')
+def search():
+    pass
 
 
 if __name__ == '__main__':
