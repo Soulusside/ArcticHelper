@@ -1,4 +1,20 @@
 body {
+    background-image: url('/static/image/background.jpg');
+    background-size: cover;
+}
+
+.text-wrapper {
+  position: absolute;
+  height: 28px;
+  top: 10px;
+  left: 146px;
+  font-family: "Vollkorn SC-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 20px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: normal;
 }
 
 @keyframes aurora {

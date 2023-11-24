@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Мои запасы</h2>
+    <ul>
+        {% if products|length == 0 %}
+        <p2>Список пуст</p2>
+        {% else %}
+            {% for product in products %}
+                {% if product.validuntil < today %}
+                        <div class="container mt-1" style="color: red;"> {{ loop.index }}. {{ product.name }} (срок годности истек: {{ product.validuntil }}) <form method="post" action="{{ url_for('Delete_product', product_id=product.id) }}" style="display:inline;">
+                            <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+                {% else %}
+                        <div class="container mt-1">  {{ loop.index }}. {{ product.name }} (годен до: {{ product.validuntil }}) <form method="post" action="{{ url_for('Delete_product', product_id=product.id) }}" style="display:inline;">
+                            <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </ul>
+        <ul>
+                <form class="row g-3" method="post" action="{{ url_for('Mystocks') }}">
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">название продукта</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="название продукта" required>
+                    </div>
+                    <div class="col-auto">
+                        <label for="validuntil" class="visually-hidden">годен до</label>
+                        <input type="date" class="form-control" id="validuntil" name="validuntil" value="годен до" required>
+                    </div>
+                    <div class="col-auto">
+                        <label for="typeprod" class="visually-hidden">выбрать тип</label>
+                        <input type=text class="form-control" id="typeprod" name="typeprod" list=browsers placeholder="выберите тип" required>
+                        <datalist id=browsers>
+                            <option value="Продукт питания"></option>
+                            <option value="Лекарственное средство"></option>
+                        </datalist>
+                    </div>
+                    <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">добавить</button>
+                    </div>
+                </form>
+
+            <a href="{{ url_for('Recipes') }}">Поиск рецептов</a>
+        </ul>
+    <a href="{{ url_for('Index') }}">Назад</a>
+</div>
+</body>
+</html>
+
+{% endblock %}

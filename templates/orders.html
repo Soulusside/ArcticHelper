@@ -9,12 +9,12 @@
         <p2>Список пуст</p2>
         {% else %}
             {% for order in orders %}
-                <div class="container mt-1"> {{ loop.index }}. {{ order.name }} {{ order.count }} <form method="post" action="{{ url_for('delete_order', orders_id=order.id) }}" style="display:inline;"><input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
+                <div class="container mt-1"> {{ loop.index }}. {{ order.name }}; {{ order.count }} шт. {{ order.date }}<form method="post" action="{{ url_for('Delete_order', orders_id=order.id) }}" style="display:inline;"><input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
             {% endfor %}
         {% endif %}
     </ul>
         <ul>
-                <form class="row g-3" method="post" action="{{ url_for('orders') }}">
+                <form class="row g-3" method="post" action="{{ url_for('Orders') }}">
                     <div class="col-auto">
                         <label for="name" class="visually-hidden">название продукта</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="название продукта" required>
@@ -29,8 +29,12 @@
                     </div>
 
                     <div class="col-auto">
-                        <label for="name" class="visually-hidden">количество</label>
+                        <label for="count" class="visually-hidden">количество</label>
                         <input type="number" class="form-control" id="count" name="count" placeholder="количество" required>
+                    </div>
+                    <div class="col-auto">
+                        <label for="date" class="visually-hidden">Дата заказа</label>
+                        <input type="date" class="form-control" id="date" name="date" placeholder="количество" required>
                     </div>
 
                     <div class="col-auto">
@@ -39,7 +43,7 @@
                 </form>
 
         </ul>
-    <a href="{{ url_for('index') }}">Назад</a>
+    <a href="{{ url_for('Index') }}">Назад</a>
 </div>
 </body>
 </html>

@@ -1,15 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<body>
-
 <div class="container mt-5">
     <h4>Добро пожаловать, {{ username }}! <a href="{{ url_for('Logout') }}">Выйти</a></h4>
     <div class="d-grid gap-2 col-6 mx-auto">
-        <a href="{{ url_for('Mystocks') }}" class="btn btn-primary">Мои продукты</a>
-        <a href="{{ url_for('Orders') }}" class="btn btn-primary">Мои заказы</a>
+        <a href="{{ url_for('Allorders') }}" class="btn btn-primary">Заказы населения</a>
     </div>
 </div>
-</body>
-</html>
+
 {% endblock %}

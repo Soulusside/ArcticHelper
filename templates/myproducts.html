@@ -10,17 +10,17 @@
         {% else %}
             {% for product in products %}
                 {% if product.validuntil < today %}
-                        <div class="container mt-1" style="color: red;"> {{ loop.index }}. {{ product.name }} (срок годности истек: {{ product.validuntil }}) <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                        <div class="container mt-1" style="color: red;"> {{ loop.index }}. {{ product.name }} (срок годности истек: {{ product.validuntil }}) <form method="post" action="{{ url_for('Delete_product', product_id=product.id) }}" style="display:inline;">
                             <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
                 {% else %}
-                        <div class="container mt-1">  {{ loop.index }}. {{ product.name }} (годен до: {{ product.validuntil }}) <form method="post" action="{{ url_for('delete_product', product_id=product.id) }}" style="display:inline;">
+                        <div class="container mt-1">  {{ loop.index }}. {{ product.name }} (годен до: {{ product.validuntil }}) <form method="post" action="{{ url_for('Delete_product', product_id=product.id) }}" style="display:inline;">
                             <input type="submit" class="btn btn-outline-danger" value="удалить"></form> </div>
                 {% endif %}
             {% endfor %}
         {% endif %}
     </ul>
         <ul>
-                <form class="row g-3" method="post" action="{{ url_for('myprod') }}">
+                <form class="row g-3" method="post" action="{{ url_for('Mystocks') }}">
                     <div class="col-auto">
                         <label for="name" class="visually-hidden">название продукта</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="название продукта" required>
@@ -42,9 +42,9 @@
                     </div>
                 </form>
 
-            <a href="{{ url_for('recipes') }}">Поиск рецептов</a>
+            <a href="{{ url_for('Recipes') }}">Поиск рецептов</a>
         </ul>
-    <a href="{{ url_for('index') }}">Назад</a>
+    <a href="{{ url_for('Index') }}">Назад</a>
 </div>
 </body>
 </html>

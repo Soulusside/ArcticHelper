@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h2>Заказы населения</h2>
+    <ul>
+        {% if orders|length == 0 %}
+        <p2>Список пуст</p2>
+        {% else %}
+            {% for order in orders %}
+                <p>{{ loop.index }}. {{ order.name }}; {{ order.count }} шт. {{ order.date }}</p>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    <a href="{{ url_for('SellerDashboard') }}">Назад</a>
+</div>
+
+
+{% endblock %}
